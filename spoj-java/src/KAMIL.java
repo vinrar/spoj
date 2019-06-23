@@ -1,0 +1,1 @@
+import java.util.*;class M{public static void main(String[]a){int q=10,v=0,j=0;Scanner i=new Scanner(System.in);while(q-->0){String s=i.next();System.out.println(1 << s.replaceAll("[^FLDT]","").length());}}}
