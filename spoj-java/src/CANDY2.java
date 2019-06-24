@@ -46,7 +46,7 @@ public class CANDY2 {
         Bag sBag1 = sBags.poll();
         Bag bBag1 = bBags.poll();
 
-        
+
     }
 
     static class Bag {
