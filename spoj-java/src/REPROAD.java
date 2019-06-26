@@ -14,22 +14,37 @@ public class REPROAD {
             for(int i = 0; i < n; i++) {
                 bs[i] = in.next().toCharArray()[0];
             }
+            int[][] dp = new int[n][cost + 1];
+            for(int i = 0; i < n; i++) {
+                for(int j = 0; j <= cost; j++) {
+                    dp[i][j] = -1;
+                }
+            }
 
-            System.out.println(calculateCost(bs, cost, 0, 0));
+            System.out.println(calculateCost(bs, cost, cost,0, 0, dp));
         }
     }
 
-    private static int calculateCost(char[] bs, int cost, int index, int valueSoFar) {
+    private static int calculateCost(char[] bs, int cost, int totalCost, int index, int valueSoFar, int[][] dp) {
         if(index == bs.length)
             return valueSoFar;
 
         if(zero.equals(bs[index])) {
             if(cost == 0)
                 return valueSoFar;
-            return Math.max(calculateCost(bs, cost -1, index + 1, valueSoFar + 1),
-                    calculateCost(bs, cost, index + 1, 0));
+
+            if(dp[index][cost] != -1)
+                return dp[index][cost];
+
+            dp[index][cost] = Math.max(calculateCost(bs, cost -1, totalCost, index + 1, valueSoFar + 1, dp),
+                    calculateCost(bs, totalCost, totalCost, index + 1, 0, dp));
+            return dp[index][cost];
         } else {
-            return calculateCost(bs, cost, index + 1, valueSoFar + 1);
+            if(dp[index][cost] != -1)
+                return dp[index][cost];
+
+            dp[index][cost] = calculateCost(bs, cost, totalCost, index + 1, valueSoFar + 1, dp);
+            return dp[index][cost];
         }
     }
 }
